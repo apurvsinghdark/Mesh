@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class DeveloperConsoleBehaviour : MonoBehaviour
@@ -10,6 +11,9 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     [Header("UI")]
     [SerializeField] private GameObject uiCanvas = null;
     [SerializeField] private TMP_InputField inputField = null;
+
+    public ScrollRect scrollRect;
+    public TMP_Text consoleText;
 
     private static string code;
 
@@ -49,7 +53,7 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
 
         if(GameManager.IsMovable)
         {
-            Debug.Log("IsMovable");
+            //Debug.Log("IsMovable");
 
             DeveloperConsole.ProcessCommand(code);
         }
@@ -89,8 +93,21 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     {
         code = inputValue;
         //DeveloperConsole.ProcessCommand(inputValue);
+        AddMessageToConsole(code);
 
         inputField.text = string.Empty;
+    }
+
+    public void AddMessageToConsole (string msg)
+    {
+        consoleText.text += msg + "\n";
+        scrollRect.verticalNormalizedPosition = 0f;
+    }
+ 
+    public static void AddStaticMessageToConsole (string msg)
+    {
+        // DeveloperConsole.Instance.consoleText.text += msg + "\n";
+        // DeveloperConsole.Instance.scrollRect.verticalNormalizedPosition = 0f;
     }
 }
 
