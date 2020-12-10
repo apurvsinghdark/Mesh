@@ -16,15 +16,8 @@ public class GCode : ConsoleCommand
 
         textSplit = logText.Split(" "[0]);
 
-        // for(int i = 0; i < textSplit.Length; i++){
-        //      //Debug.Log(textSplit[i]); //each split
-        // }
-
         var x = textSplit[0].Remove(0,1);
         var z = textSplit[1].Remove(0,1);
-        
-        //Debug.Log(x);
-        //Debug.Log(z);
 
         if (!float.TryParse(x, out float xValue))
         {
@@ -39,10 +32,10 @@ public class GCode : ConsoleCommand
         //Debug.Log(msg + " " + value);
 
         GameManager Pin = GameManager.instance;
-        Pin.pin.position = new Vector3(-xValue, zValue, 1);
+        Pin.pin.position = new Vector3(xValue, zValue, 1);
 
 
-        if (Pin.pin.position == new Vector3(-xValue, zValue, 1))
+        if (Pin.pin.position == new Vector3(xValue, zValue, 1))
         {
             GameManager.IsMovable = false;
         }
