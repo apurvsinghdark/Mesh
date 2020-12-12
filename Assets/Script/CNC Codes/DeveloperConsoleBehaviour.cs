@@ -91,11 +91,11 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
 
     public void ProcessCommand(string inputValue)
     {
-        code = inputValue;
+        code = InputCommand.instance.myCommand.text;
         //DeveloperConsole.ProcessCommand(inputValue);
         AddMessageToConsole(code);
 
-        inputField.text = string.Empty;
+        InputCommand.instance.myCommand.text = string.Empty;
     }
 
     public void AddMessageToConsole (string msg)
