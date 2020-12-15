@@ -51,7 +51,7 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
             GameManager.IsMovable = true;
         }
 
-        if(GameManager.IsMovable)
+        if(GameManager.IsMovable && GameManager.IsPower)
         {
             //Debug.Log("IsMovable");
 
@@ -91,11 +91,13 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
 
     public void ProcessCommand(string inputValue)
     {
-        code = InputCommand.instance.myCommand.text;
+        //code = InputCommand.instance.myCommand.text;
+        code = inputValue;
         //DeveloperConsole.ProcessCommand(inputValue);
         AddMessageToConsole(code);
 
-        InputCommand.instance.myCommand.text = string.Empty;
+        //InputCommand.instance.myCommand.text = string.Empty;
+        inputField.text = string.Empty;
     }
 
     public void AddMessageToConsole (string msg)

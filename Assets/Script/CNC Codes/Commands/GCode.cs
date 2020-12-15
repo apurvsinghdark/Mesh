@@ -32,10 +32,10 @@ public class GCode : ConsoleCommand
         //Debug.Log(msg + " " + value);
 
         GameManager Pin = GameManager.instance;
-        Pin.pin.position = new Vector3(xValue, zValue, 1);
+        Pin.pin.position = new Vector3(zValue, xValue, 1);
 
 
-        if (Pin.pin.position == new Vector3(xValue, zValue, 1))
+        if (Pin.pin.position == new Vector3(zValue, xValue, 1))
         {
             GameManager.IsMovable = false;
         }

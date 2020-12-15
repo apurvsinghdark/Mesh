@@ -10,7 +10,7 @@ public class InputCommand : MonoBehaviour
     public TMP_Text myCommand = null;
 
     public delegate void OnResetChanged();
-    public OnResetChanged onResetChanged;ChanonResetChanged != null
+    public OnResetChanged onResetChanged;
 
     public event System.Action OnPowerChanged;
     public event System.Action OnEStopChanged;
@@ -37,21 +37,17 @@ public class InputCommand : MonoBehaviour
         Debug.Log("Reset");
 
         if(onResetChanged != null)
-            onResetChanged.invoke();
+            onResetChanged.Invoke();
     }
     
     public void EmergencyStop()
     {
-        Debug.Log("E-STOP");
-
         if(OnEStopChanged != null)
             OnEStopChanged();
     }
     
     public void PowerSwitch()
     {
-        Debug.Log("Power");
-
         if(OnPowerChanged != null)
             OnPowerChanged();
     }
