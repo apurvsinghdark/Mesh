@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
         InputCommand.instance.OnEStopChanged += OnEStop;
         InputCommand.instance.OnPowerChanged += OnPower;
+        InputCommand.instance.onResetChanged += OnReset;
     }
 
     private void Update() {
@@ -55,5 +56,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Power Off");
         }
+    }
+
+    public void OnReset()
+    {
+        pin.position = new Vector3(6,-7,0);
     }
 }

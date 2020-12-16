@@ -90,6 +90,8 @@ public class TurningController : MonoBehaviour
 
             PostShapeChange();
         }
+
+        InputCommand.instance.onResetChanged += ResetState;
     }
 
     // public void LateUpdate()
