@@ -15,7 +15,7 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     public ScrollRect scrollRect;
     public TMP_Text consoleText;
 
-    private static string code;
+    string code = "";
 
     private static DeveloperConsoleBehaviour instance;
 
@@ -42,6 +42,10 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start() {
+        
+        InputCommand.instance.OnEnterChanged += TextToConsole;
+    }
     private void LateUpdate() {
         
         
@@ -88,6 +92,15 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     //         inputField.ActivateInputField();
     //     }
     // }
+
+    public void TextToConsole()
+    {
+        //Debug.Log("Enter Pressed");
+        //code = InputCommand.instance.myCommand.text;
+        //AddMessageToConsole(code);
+
+        //InputCommand.instance.myCommand.text = string.Empty;
+    }
 
     public void ProcessCommand(string inputValue)
     {

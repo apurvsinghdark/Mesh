@@ -1,21 +1,21 @@
 ﻿using UnityEngine;
+using System.Collections;
 
-[CreateAssetMenu(fileName = "New GCODES", menuName = "Commands/G01")]
-public class G01 : ConsoleCommand
+[CreateAssetMenu(fileName = "New GCODES", menuName = "Commands/G03")]
+public class G03 : ConsoleCommand
 {
     public string msg = " ";
 
+    private Vector2 chisel;
+    private Vector2 end;
+
     string[] textSplit;
 
-    
+
+    public event System.Action<Transform, Vector2, Vector2, float, float> FollowCircle;
+
     public override bool Process(string[] args)
     {
-        //if (args.Length != 1) { return false; }
-
-        // if (!float.TryParse(args[0], out float value))
-        // {
-        //     return false;
-        // }
 
         string logText = string.Join(" ", args);
 
@@ -23,8 +23,8 @@ public class G01 : ConsoleCommand
 
         var x = textSplit[0].Remove(0,1);
         var z = textSplit[1].Remove(0,1);
-        var f = textSplit[2].Remove(0,1);
-
+        var r = textSplit[2].Remove(0,1);
+ 
         if (!float.TryParse(x, out float xValue))
         {
             return false;
@@ -35,7 +35,7 @@ public class G01 : ConsoleCommand
             return false;
         }
         
-        if (!float.TryParse(f, out float fValue))
+        if (!float.TryParse(r, out float rValue))
         {
             return false;
         }
@@ -43,15 +43,19 @@ public class G01 : ConsoleCommand
         //Debug.Log(msg + " " + value);
 
         GameManager Pin = GameManager.instance;
-        Pin.pin.position = Vector3.MoveTowards(Pin.pin.position, new Vector3(zValue , xValue, 0), fValue * Time.deltaTime);
 
-        if (Pin.pin.position == new Vector3(zValue, xValue, 0))
+        chisel.x = Pin.pin.position.x;
+        chisel.y = Pin.pin.position.y;
+
+        end.x = zValue;
+        end.y = xValue;
+
+        //FollowArc(Pin.pin, chisel, end, rValue, 3);
+        if(FollowCircle != null)
         {
-            GameManager.IsMovable = false;
+            FollowCircle(Pin.pin, chisel, end, -rValue, 3);
         }
-        //Pin.pin.position.x 
-    
-
+        
         return true;
     }
 }
