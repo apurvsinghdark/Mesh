@@ -11,12 +11,10 @@ public class G03 : ConsoleCommand
 
     string[] textSplit;
 
-
     public event System.Action<Transform, Vector2, Vector2, float, float> FollowCircle;
 
     public override bool Process(string[] args)
     {
-
         string logText = string.Join(" ", args);
 
         textSplit = logText.Split(" "[0]);

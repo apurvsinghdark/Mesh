@@ -7,16 +7,10 @@ public class G01 : ConsoleCommand
 
     string[] textSplit;
 
+    public event System.Action<float, float, float> LinearMovement;
     
     public override bool Process(string[] args)
     {
-        //if (args.Length != 1) { return false; }
-
-        // if (!float.TryParse(args[0], out float value))
-        // {
-        //     return false;
-        // }
-
         string logText = string.Join(" ", args);
 
         textSplit = logText.Split(" "[0]);
@@ -42,15 +36,10 @@ public class G01 : ConsoleCommand
 
         //Debug.Log(msg + " " + value);
 
-        GameManager Pin = GameManager.instance;
-        Pin.pin.position = Vector3.MoveTowards(Pin.pin.position, new Vector3(zValue , xValue, 0), fValue * Time.deltaTime);
-
-        if (Pin.pin.position == new Vector3(zValue, xValue, 0))
+        if(LinearMovement != null)
         {
-            GameManager.IsMovable = false;
+            LinearMovement(xValue, zValue, fValue); 
         }
-        //Pin.pin.position.x 
-    
 
         return true;
     }

@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New GCODES", menuName = "Commands/GCodes")]
-public class GCode : ConsoleCommand
+[CreateAssetMenu(fileName = "New GCODES", menuName = "Commands/G00")]
+public class G00 : ConsoleCommand
 {
     public string msg = " ";
 
     string[] textSplit;
 
+    public event System.Action<float, float> QuickMovement;
     
     public override bool Process(string[] args)
     {
-        //if (args.Length != 1) { return false; }
-
         string logText = string.Join(" ", args);
 
         textSplit = logText.Split(" "[0]);
@@ -31,13 +30,9 @@ public class GCode : ConsoleCommand
 
         //Debug.Log(msg + " " + value);
 
-        GameManager Pin = GameManager.instance;
-        Pin.pin.position = new Vector3(zValue, xValue, 1);
-
-
-        if (Pin.pin.position == new Vector3(zValue, xValue, 1))
+        if(QuickMovement != null)
         {
-            GameManager.IsMovable = false;
+            QuickMovement(xValue, zValue); 
         }
 
         return true;

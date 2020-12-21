@@ -48,21 +48,6 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     }
     private void LateUpdate() {
         
-        
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            //DeveloperConsole.ProcessCommand(inputField.text);
-            GameManager.IsMovable = true;
-        }
-
-        if(GameManager.IsMovable && GameManager.IsPower)
-        {
-            //Debug.Log("IsMovable");
-
-            DeveloperConsole.ProcessCommand(code);
-        }
-
-
         if(Input.GetKeyDown(KeyCode.BackQuote))
         {
             if (uiCanvas.activeSelf)
@@ -78,39 +63,28 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
             
     }
 
-    // public void Toggle()
-    // {
-    //     //if (!context.action.triggered) { return; }
-
-    //     if (uiCanvas.activeSelf)
-    //     {
-    //         uiCanvas.SetActive(false);
-    //     }
-    //     else
-    //     {
-    //         uiCanvas.SetActive(true);
-    //         inputField.ActivateInputField();
-    //     }
-    // }
-
     public void TextToConsole()
     {
         //Debug.Log("Enter Pressed");
-        //code = InputCommand.instance.myCommand.text;
-        //AddMessageToConsole(code);
+        code = InputCommand.instance.myCommand.text;
+        AddMessageToConsole(code);
+        
+        if(GameManager.IsPower)
+            DeveloperConsole.ProcessCommand(code);
 
-        //InputCommand.instance.myCommand.text = string.Empty;
+        InputCommand.instance.myCommand.text = string.Empty;
     }
 
     public void ProcessCommand(string inputValue)
     {
-        //code = InputCommand.instance.myCommand.text;
-        code = inputValue;
-        //DeveloperConsole.ProcessCommand(inputValue);
-        AddMessageToConsole(code);
+        // code = inputValue;
+        
+        // if(GameManager.IsPower)
+        //     DeveloperConsole.ProcessCommand(code);
+        
+        // AddMessageToConsole(code);
 
-        //InputCommand.instance.myCommand.text = string.Empty;
-        inputField.text = string.Empty;
+        // inputField.text = string.Empty;
     }
 
     public void AddMessageToConsole (string msg)

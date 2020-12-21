@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New GCODES", menuName = "Commands/M03")]
+[CreateAssetMenu(fileName = "New MCODES", menuName = "Commands/M03")]
 public class M03 : ConsoleCommand
 {
     public string msg = " ";

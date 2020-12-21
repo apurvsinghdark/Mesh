@@ -12,19 +12,10 @@ public class G02 : ConsoleCommand
 
     string[] textSplit;
 
-    private void Awake() {
-        
-        if(instance == null)
-        {
-            instance = this;
-        }
-    }
-
     public event System.Action<Transform, Vector2, Vector2, float, float> FollowCircle;
 
     public override bool Process(string[] args)
     {
-
         string logText = string.Join(" ", args);
 
         textSplit = logText.Split(" "[0]);
