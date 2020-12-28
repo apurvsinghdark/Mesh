@@ -8,6 +8,7 @@ public class Turrent : MonoBehaviour
     [SerializeField] Transform tool_Holder;
     [SerializeField] Transform tool_VertPart;
     [SerializeField] Transform tool_HorizPart;
+    [SerializeField] Transform chisel;
 
     private void Update() {
         TurrentMovement();
@@ -18,18 +19,31 @@ public class Turrent : MonoBehaviour
     {
         //Turrent Vertical Movement
         if(Input.GetKey(KeyCode.A))
+        {
             tool_VertPart.localPosition += new Vector3(1f,0f,0f) * Time.deltaTime;
+            chisel.localPosition += new Vector3(10f,0f,0f) * Time.deltaTime;
+        }
         
         if(Input.GetKey(KeyCode.D))
+        {
             tool_VertPart.localPosition += new Vector3(-1f,0f,0f) * Time.deltaTime;
+            chisel.localPosition += new Vector3(-10f,0f,0f) * Time.deltaTime;
+        }
 
 
         // Turrent Horizontal Movement
         if(Input.GetKey(KeyCode.W))
+        {
             tool_HorizPart.localPosition += new Vector3(0f,1f,-1f) * Time.deltaTime;
+            chisel.localPosition += new Vector3(0f,-10f,10f) * Time.deltaTime;
+
+        }
         
         if(Input.GetKey(KeyCode.S))
+        {
             tool_HorizPart.localPosition += new Vector3(0f,-1f,1f) * Time.deltaTime;
+            chisel.localPosition += new Vector3(0f,10f,-10f) * Time.deltaTime;
+        }
     }
 
     void TurrentRotation()
