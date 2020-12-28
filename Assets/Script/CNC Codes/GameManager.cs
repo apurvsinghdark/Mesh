@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
 
     public Transform pin;
     public Transform cylinder;
+    public Transform chuck;
 
-    public static float spindleRate;
+    public float spindleRate;
 
     public static bool IsMovable { get; set;}
     public static bool IsPower { get; set;}
@@ -30,11 +31,15 @@ public class GameManager : MonoBehaviour
         InputCommand.instance.OnEStopChanged += OnEStop;
         InputCommand.instance.OnPowerChanged += OnPower;
         InputCommand.instance.onResetChanged += OnReset;
+        InputCommand.instance.OnPowerOnChanged += PowerOnn;
+        InputCommand.instance.OnPowerOffChanged += PowerOff;
     }
 
     private void Update() {
         
         cylinder.Rotate(spindleRate,0,0);
+        chuck.Rotate(-spindleRate/2.5f,0,0);
+
     }
 
     public void OnEStop()
@@ -58,8 +63,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void PowerOnn()
+    {
+        IsPower = true;
+        Debug.Log("Power On");
+    }
+    
+    public void PowerOff()
+    {
+        IsPower = false;
+        Debug.Log("Power Off");
+    }
+
     public void OnReset()
     {
-        pin.position = new Vector3(6,-7,0);
+        //pin.position = new Vector3(6,-7,0);
     }
 }

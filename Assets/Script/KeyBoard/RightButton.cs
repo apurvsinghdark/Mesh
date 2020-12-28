@@ -9,7 +9,7 @@ public class RightButton : MonoBehaviour , IPointerDownHandler , IPointerUpHandl
     private void Update() {
         if (isPressed && GameManager.IsPower)
         {
-            pin.transform.Translate(0.1f, 0, 0);
+            pin.transform.Translate(new Vector3(10f, 0, 0) * Time.deltaTime);
         }    
     }
 

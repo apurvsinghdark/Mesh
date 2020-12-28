@@ -12,6 +12,8 @@ public class InputCommand : MonoBehaviour
     public delegate void OnResetChanged();
     public OnResetChanged onResetChanged;
 
+    public event System.Action OnPowerOnChanged;
+    public event System.Action OnPowerOffChanged;
     public event System.Action OnPowerChanged;
     public event System.Action OnEStopChanged;
     public event System.Action OnEnterChanged;
@@ -52,6 +54,16 @@ public class InputCommand : MonoBehaviour
         if(OnPowerChanged != null)
             OnPowerChanged();
     }
+    public void PowerOnSwitch()
+    {
+        if(OnPowerOnChanged != null)
+            OnPowerOnChanged();
+    }
+    public void PowerOffSwitch()
+    {
+        if(OnPowerOffChanged != null)
+            OnPowerOffChanged();
+    }
 
     public void OnEnter()
     {
@@ -59,5 +71,11 @@ public class InputCommand : MonoBehaviour
             OnEnterChanged();
 
         word = string.Empty;
+    }
+
+    public void OnCancel()
+    {
+        word = string.Empty;
+        myCommand.text = string.Empty;
     }
 }

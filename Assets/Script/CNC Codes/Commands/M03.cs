@@ -20,7 +20,7 @@ public class M03 : ConsoleCommand
             return false;
         }
         
-        GameManager.spindleRate = sValue/1000;
+        GameManager.instance.spindleRate = sValue/100;
         
         return true;
     }

@@ -9,7 +9,7 @@ public class DownButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private void Update() {
         if (isPressed && GameManager.IsPower)
         {
-            pin.transform.Translate(0, -0.1f, 0);
+            pin.transform.Translate(new Vector3(0, -10f, 0) * Time.deltaTime);
         }    
     }
 

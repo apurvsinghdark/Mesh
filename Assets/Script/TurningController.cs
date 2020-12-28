@@ -101,7 +101,7 @@ public class TurningController : MonoBehaviour
     //     {
     //         Debug.DrawLine(basePos + polygon[i].ToVector3(), basePos + polygon[i-1].ToVector3());
     //     }
-    //     Debug.DrawLine(basePos + polygon[0].ToVector3(), basePos + polygon[polygon.Count-1].ToVector3());
+    //     Debug.DrawLine(basePos + polygon[0].ToVector3(), basePos + polygon[polygon.Count -1].ToVector3());
     // }
 
     public bool OverlapChisel(List<Vector2> points, BoundingBox bound)
