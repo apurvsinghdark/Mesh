@@ -18,6 +18,7 @@ public class AimBehaviour : MonoBehaviour
         {
             mainCamera.SetActive(false);
             aimCamera.SetActive(true);
+            Camera.main.orthographic = true;
 
             //Allow time for the camera to blend before enabling the UI
             StartCoroutine(ShowReticle());
@@ -27,6 +28,7 @@ public class AimBehaviour : MonoBehaviour
             mainCamera.SetActive(true);
             aimCamera.SetActive(false);
             aimReticle.SetActive(true);
+            Camera.main.orthographic = false;
         }
     }
     

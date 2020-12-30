@@ -15,6 +15,12 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public Transform pin;
+    public Transform meshHolder;
+
+    //Turrent_Transforms
+    public Transform turrent;
+    public Transform turrent_toolHolder;
+
     public Transform cylinder;
     public Transform chuck;
 
@@ -39,6 +45,8 @@ public class GameManager : MonoBehaviour
         
         cylinder.Rotate(spindleRate,0,0);
         chuck.Rotate(-spindleRate/2.5f,0,0);
+
+        //pin.localPosition = new Vector3(turrent.localPosition.x, pin.localPosition.y, pin.localPosition.z);
 
     }
 
