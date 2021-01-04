@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 
 public class DeveloperConsoleBehaviour : MonoBehaviour
@@ -16,6 +17,8 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     public TMP_Text consoleText;
 
     string code = "";
+    string[] textSplit;
+    string Commandtext;
 
     private static DeveloperConsoleBehaviour instance;
 
@@ -45,6 +48,7 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     private void Start() {
         
         InputCommand.instance.OnEnterChanged += TextToConsole;
+        InputCommand.instance.OnCycleStartChanged += StartCycle;
     }
     private void LateUpdate() {
         
@@ -69,10 +73,16 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         code = InputCommand.instance.myCommand.text;
         AddMessageToConsole(code);
         
-        if(GameManager.IsPower)
-            DeveloperConsole.ProcessCommand(code);
+        // if(GameManager.IsPower)
+        //     DeveloperConsole.ProcessCommand(code);
 
         InputCommand.instance.myCommand.text = string.Empty;
+    }
+
+    public void StartCycle()
+    {
+        if(GameManager.IsPower)
+            StartCoroutine(ListSystem());
     }
 
     public void ProcessCommand(string inputValue)
@@ -90,7 +100,12 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     public void AddMessageToConsole (string msg)
     {
         consoleText.text += msg + "\n";
+        Commandtext += msg;
         scrollRect.verticalNormalizedPosition = 0f;
+
+        textSplit = Commandtext.Split(";"[0]);
+
+        //Debug.Log(textSplit[1]);
     }
  
     public static void AddStaticMessageToConsole (string msg)
@@ -98,5 +113,19 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         // DeveloperConsole.Instance.consoleText.text += msg + "\n";
         // DeveloperConsole.Instance.scrollRect.verticalNormalizedPosition = 0f;
     }
+
+
+    //Read String Commands at certain interval of time
+    IEnumerator ListSystem() {
+     
+     for(int i = 0; i < textSplit.Length; i++) {   
+
+        DeveloperConsole.ProcessCommand(textSplit[i]);
+        Debug.Log(textSplit[i]);
+        
+        yield return new WaitForSeconds(3);
+    }
+ }    
+
 }
 

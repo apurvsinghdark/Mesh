@@ -17,6 +17,7 @@ public class InputCommand : MonoBehaviour
     public event System.Action OnPowerChanged;
     public event System.Action OnEStopChanged;
     public event System.Action OnEnterChanged;
+    public event System.Action OnCycleStartChanged;
 
     public void alphabetFunction(string alphabet)
     {
@@ -71,6 +72,12 @@ public class InputCommand : MonoBehaviour
             OnEnterChanged();
 
         word = string.Empty;
+    }
+    
+    public void OnCycleStart()
+    {
+        if(OnCycleStartChanged != null)
+            OnCycleStartChanged();
     }
 
     public void OnCancel()

@@ -32,7 +32,8 @@ public class LinearInterpolation : MonoBehaviour
             {
                 percentValue = (zValue/100) * 5;
                 //Debug.Log(percentValue);
-                newPosition = Pin.pin.localPosition.x + percentValue;
+                newPosition = -2.9f - percentValue;
+                //newPosition = Pin.pin.localPosition.x - percentValue;
             }
 
             do{
