@@ -43,11 +43,17 @@ public class G02 : ConsoleCommand
 
         GameManager Pin = GameManager.instance;
 
-        chisel.x = Pin.pin.position.x;
-        chisel.y = Pin.pin.position.y;
+        chisel.x = Pin.pin.localPosition.x;
+        chisel.y = Pin.pin.localPosition.y;
 
-        end.x = zValue;
-        end.y = xValue;
+        float percentZValue = (zValue/100) * 5;
+        float percentXValue = (xValue/100) * 5;
+        //Debug.Log(percentValue);
+        float newXPosition = -2.9f - percentZValue;
+        float newZPosition = -3.100001f - percentXValue;
+
+        end.x = newXPosition;
+        end.y = newZPosition;
 
         //FollowArc(Pin.pin, chisel, end, rValue, 3);
         if(FollowCircle != null)

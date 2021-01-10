@@ -29,8 +29,8 @@ public class MeshGeneration : MonoBehaviour
         public int skip;
     }
 
-    //private void LateUpdate()
-    //{
+    // private void LateUpdate()
+    // {
     //    Vector3[] vertices = mesh.vertices;
     //    Vector3[] normal = mesh.normals;
 
@@ -38,7 +38,7 @@ public class MeshGeneration : MonoBehaviour
     //    {
     //        Debug.DrawLine(vertices[i], vertices[i] + normal[i]);
     //    }
-    //}
+    // }
 
     void UpdateMesh()
     {

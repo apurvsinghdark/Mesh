@@ -123,7 +123,7 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         DeveloperConsole.ProcessCommand(textSplit[i]);
         Debug.Log(textSplit[i]);
         
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(LinearInterpolation.timeScale);
     }
  }    
 

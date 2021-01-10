@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     public static bool IsMovable { get; set;}
     public static bool IsPower { get; set;}
 
+    //public ParticleSystem dirtParticle;
+
     private void Start() {
         
         IsMovable = false;

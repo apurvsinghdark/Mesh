@@ -25,6 +25,7 @@ public class CircularArc : MonoBehaviour
         float radius, // Set this to negative if you want to flip the arc.
         float duration) {
 
+        //float percentXValue = - 
         GameManager Pin = GameManager.instance;
 
         Vector2 difference = end - start;
@@ -51,11 +52,11 @@ public class CircularArc : MonoBehaviour
 
         float progress = 0f;
         do {
-            //Pin.turrent_toolHolder.parent = Pin.pin;
+            Pin.turrent.parent = Pin.pin;
             float angle = startAngle + progress * travel;
             mover.localPosition = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * absRadius;
             progress += Time.deltaTime/duration;
-            //Pin.turrent_toolHolder.parent = Pin.turrent;
+            Pin.turrent.parent = Pin.meshHolder;
             yield return null;
         } while (progress < 1f);
 

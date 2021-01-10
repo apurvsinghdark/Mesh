@@ -7,6 +7,7 @@ using Polygon = System.Collections.Generic.List<ClipperLib.IntPoint>;
 
 public class TurningChisel : MonoBehaviour
 {
+    public ParticleSystem dirtParticle;
     protected TurningController subject;
 
     //protected TouchDragChisel chiselDrag;
@@ -29,6 +30,8 @@ public class TurningChisel : MonoBehaviour
 
     void Start()
     {
+        dirtParticle.Stop();
+
         subject = FindObjectOfType<TurningController>();
          
         previousPosition = transform.position;
@@ -49,6 +52,10 @@ public class TurningChisel : MonoBehaviour
             basePolygon[i] = points[i] + offset;
             if (clampOffset < basePolygon[i].y) clampOffset = basePolygon[i].y;
         }
+
+        ContactEnd();
+
+        StartCoroutine(PreventContactingWhenPositionNotChanged(0.5f));
     }
 
     private void Update()
@@ -67,24 +74,38 @@ public class TurningChisel : MonoBehaviour
 
             if (subject.OverlapChisel(clipPoints, bound))
             {
-                // if (!contacting)
-                // {
-                //     contacting = true;
-                // }
+                if (!contacting)
+                {
+                    contacting = true;
+                    ContactBegin();
+                }
 
-                subject.Clip(this);          
+                subject.Clip(this);
+                //GameManager.instance.dirtParticle.Play(); 
             }
-            // else
-            // {
-            //     if (contacting)
-            //     {
-            //         contacting = false;
-            //         //ContactEnd();
-            //     }
-            // }
+             else
+             {
+
+                //GameManager.instance.dirtParticle.Stop(); 
+                 if (contacting)
+                 {
+                    contacting = false;
+                    ContactEnd();
+                 }
+             }
           
             previousPosition = currentPosition;
         }
+    }
+
+    void ContactBegin()
+    {
+        dirtParticle.Play();
+    }
+
+    void ContactEnd()
+    {
+        dirtParticle.Stop();
     }
 
     void BuildClipPolygon(Vector2 begin, Vector2 end)
@@ -151,5 +172,31 @@ public class TurningChisel : MonoBehaviour
             bound.pointB.x = Mathf.Max(bound.pointB.x, p.x);
             bound.pointB.y = Mathf.Max(bound.pointB.y, p.y);
         }
+    }
+     IEnumerator PreventContactingWhenPositionNotChanged(float maxDuration)
+    {
+        float time = maxDuration;
+
+        while (true)
+        {
+            if (transform.hasChanged)
+            {
+                time = maxDuration;
+            }
+
+            time -= Time.deltaTime;
+
+            if (time < 0f)
+            {
+                if (contacting)
+                {
+                    contacting = false;
+                    ContactEnd();
+                }           
+            }
+
+            yield return null;
+     
+       }
     }
 }

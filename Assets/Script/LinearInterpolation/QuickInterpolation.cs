@@ -5,6 +5,8 @@ using UnityEngine;
 public class QuickInterpolation : MonoBehaviour
 {
     public G00 g00;
+
+    float yValue;
     private void Start() {
         g00.QuickMovement += Movement;
     }
@@ -19,15 +21,34 @@ public class QuickInterpolation : MonoBehaviour
         if(zValue == 0 && xValue == 0)
         {
             zValue = -2.9f;
-            xValue = -3;
-        }
-        
-        do{
+            xValue = -3.100001f;
+            //yValue = -0.62f;
+            //Pin.pin.localPosition.z = new Vector3(0,0,yValue);
+
+            do{
             Pin.turrent.parent = Pin.pin;
-            Pin.pin.localPosition = new Vector3(zValue, xValue, 0);
+            Pin.pin.localPosition = new Vector3(zValue, xValue, Pin.pin.localPosition.z);
             Pin.turrent.parent = Pin.meshHolder;
 
             yield return null;
-        }while( Vector2.Distance(Pin.pin.localPosition, new Vector3(zValue, xValue, 0)) > 0.01f);
+            }while( Vector2.Distance(Pin.pin.localPosition, new Vector3(zValue, xValue, Pin.pin.localPosition.z)) > 0.01f);
+        }
+        
+        if(zValue != 0 && xValue != 0)
+        {
+            float percentZValue = (zValue/100) * 5;
+            float percentXValue = (xValue/100) * 5;
+            //Debug.Log(percentValue);
+            float newXPosition = -2.9f - percentZValue;
+            float newZPosition = -3.100001f + percentXValue;
+
+            do{
+                Pin.turrent.parent = Pin.pin;
+                Pin.pin.localPosition = new Vector3(newXPosition, newZPosition, Pin.pin.localPosition.z);
+                Pin.turrent.parent = Pin.meshHolder;
+
+                yield return null;
+            }while( Vector2.Distance(Pin.pin.localPosition, new Vector3(newXPosition, newZPosition, Pin.pin.localPosition.z)) > 0.01f);
+        }
     }
 }
