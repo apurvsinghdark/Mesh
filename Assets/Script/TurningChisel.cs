@@ -77,8 +77,8 @@ public class TurningChisel : MonoBehaviour
                 if (!contacting)
                 {
                     contacting = true;
-                    ContactBegin();
                 }
+                ContactBegin();
 
                 subject.Clip(this);
                 //GameManager.instance.dirtParticle.Play(); 
@@ -90,8 +90,8 @@ public class TurningChisel : MonoBehaviour
                  if (contacting)
                  {
                     contacting = false;
-                    ContactEnd();
                  }
+                ContactEnd();
              }
           
             previousPosition = currentPosition;
@@ -191,8 +191,8 @@ public class TurningChisel : MonoBehaviour
                 if (contacting)
                 {
                     contacting = false;
-                    ContactEnd();
                 }           
+                ContactEnd();
             }
 
             yield return null;

@@ -1,6 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+////Issues need to fix
+//Timefix For Multiple Carve
+//DirtParticle
+
 
 public class LinearInterpolation : MonoBehaviour
 {
@@ -40,33 +45,49 @@ public class LinearInterpolation : MonoBehaviour
             for(int i = 0; i < 2; i++) {   
 
                 //float z = zValue;
-                StartCoroutine(LinearMovement(xValue, zValue, fValue));
-                //Debug.Log("repeat" + zValue);
-
-                yield return new WaitForSeconds(1);
-                StopCoroutine(LinearMovement(xValue, zValue, fValue));
-
-                //G01.IsHorizontal = true;
+                G01.IsHorizontal = false;
+                StartCoroutine(LinearMovement(xValue + 2, 0, fValue));
+                yield return new WaitForSeconds(0.5f);
+                StopCoroutine(LinearMovement(xValue + 2, 0, fValue));
+                G01.IsHorizontal = true;
+                StartCoroutine(LinearMovement(0,zValue,fValue));
+                yield return new WaitForSeconds(0.5f);
+                StopCoroutine(LinearMovement(0,zValue, fValue));
                 StartCoroutine(LinearMovement(0,0,fValue));
-
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0.5f);
                 StopCoroutine(LinearMovement(0,0, fValue));
-                //Debug.Log("Zero");
+                yield return new WaitForSeconds(0.5f);
+                G01.IsHorizontal = false;
+                xValue -= 2;
+                
+
             }
 
-            // StartCoroutine(LinearMovement(xValue,zValue,fValue));
-            // yield return new WaitForSeconds(1);
-            // StopCoroutine(LinearMovement(xValue,zValue,fValue));
+            // G01.IsHorizontal = false;
+            // StartCoroutine(LinearMovement(xValue + 2,0,fValue));
+            // yield return new WaitForSeconds(0.5f);
+            // StopCoroutine(LinearMovement(xValue + 2,0,fValue));
+            // G01.IsHorizontal = true;
+            // StartCoroutine(LinearMovement(0,zValue,fValue));
+            // yield return new WaitForSeconds(0.5f);
+            // StopCoroutine(LinearMovement(0,zValue,fValue));
+            // StartCoroutine(LinearMovement(0,0,fValue));
+            // yield return new WaitForSeconds(0.5f);
+            // StopCoroutine(LinearMovement(0,0,fValue));
+            // G01.IsHorizontal = false;
+            // StartCoroutine(LinearMovement(xValue,0,fValue));
+            // yield return new WaitForSeconds(0.5f);
+            // StopCoroutine(LinearMovement(xValue,0,fValue));
+            // G01.IsHorizontal = true;
+            // StartCoroutine(LinearMovement(0,zValue,fValue));
+            // yield return new WaitForSeconds(0.5f);
+            // StopCoroutine(LinearMovement(0,zValue,fValue));
             // yield return new WaitForSeconds(1);
             // StartCoroutine(LinearMovement(0,0,fValue));
             // yield return new WaitForSeconds(1);
             // StopCoroutine(LinearMovement(0,0,fValue));
-            // yield return new WaitForSeconds(1);
-            // StartCoroutine(LinearMovement(xValue,zValue,fValue));
-            // yield return new WaitForSeconds(1);
-            // StopCoroutine(LinearMovement(xValue,zValue,fValue));
         }
-        yield return null;
+        //yield return null;
     }
     
     IEnumerator LinearMovement(float xValue, float zValue, float fValue)
@@ -112,7 +133,7 @@ public class LinearInterpolation : MonoBehaviour
                 percentValue = (xValue/100) * 5;
                 //Debug.Log(percentValue);
                 newYPosition = -3.100001f - percentValue;
-                newZPosition = 0f + percentValue;
+                //newZPosition = 0f + percentValue;
                 //newPosition = Pin.pin.localPosition.x - percentValue;
             }
 

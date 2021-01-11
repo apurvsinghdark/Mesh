@@ -665,7 +665,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29746813}
-  m_LocalRotation: {x: 0.0070080883, y: 0.19692965, z: -0.0014077183, w: 0.9803916}
+  m_LocalRotation: {x: 0.007008109, y: 0.19692968, z: -0.0014077226, w: 0.9803916}
   m_LocalPosition: {x: -13.070001, y: 11.900001, z: -75.28999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -7477,7 +7477,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 528890055}
-  m_LocalRotation: {x: 0.0070080883, y: 0.19692965, z: -0.0014077183, w: 0.9803916}
+  m_LocalRotation: {x: 0.007008109, y: 0.19692968, z: -0.0014077226, w: 0.9803916}
   m_LocalPosition: {x: -13.070001, y: 11.900001, z: -75.28999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -35733,7 +35733,6 @@ MonoBehaviour:
   cylinder: {fileID: 8247670415846053998}
   chuck: {fileID: 700153357659150192}
   spindleRate: 0
-  dirtParticle: {fileID: 716544377}
 --- !u!114 &2138301833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37059,6 +37058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6a1bf124f4c3f478e50913b2dea5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dirtParticle: {fileID: 716544377}
 --- !u!1 &6127846773609927949
 GameObject:
   m_ObjectHideFlags: 0
