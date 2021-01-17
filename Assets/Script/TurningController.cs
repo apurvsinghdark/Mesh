@@ -164,7 +164,7 @@ public class TurningController : MonoBehaviour
                 }
                 else
                 {
-                    //StartCoroutine(CreateDetachedObject(poly));
+                    StartCoroutine(CreateDetachedObject(poly));
                 }
             }
         }
@@ -180,6 +180,53 @@ public class TurningController : MonoBehaviour
             ExtractEdge();
             PostShapeChange();
         }
+    }
+
+    IEnumerator CreateDetachedObject(Polygon polygon)
+    {
+        GameObject go = new GameObject("DetachedSubject");
+
+        GameManager Pin = GameManager.instance;
+
+        //go.transform.parent = Pin.meshHolder;
+
+        var go_transform = go.transform;
+        var this_transform = transform;
+
+        go_transform.localPosition = this_transform.localPosition;
+        go_transform.localRotation = this_transform.localRotation;
+
+        go.AddComponent<MeshFilter>();
+        go.AddComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().material;
+        var turningController = go.AddComponent<TurningController>();
+        turningController.width = width;
+        turningController.height = height;
+        turningController.circumferenceSegmentCount = circumferenceSegmentCount;
+        turningController.polygon = polygon;
+
+        var turningMeshBuilder = go.AddComponent<MeshGeneration>();
+
+        var rb = go.AddComponent<Rigidbody>();
+        go.AddComponent<BoxCollider>();
+        rb.useGravity = false;
+        rb.AddRelativeTorque(new Vector3(1000f, 0f, 0f));
+        //rb.AddForce(new Vector3(Mathf.Sign(polygon[0].X) * 100f, 0f, 0f), ForceMode.Force);//100f
+
+        yield return null;
+
+        float time = 0f;
+
+        while (time < 2f)
+        {
+            time += Time.deltaTime;
+
+            rb.AddForce(new Vector3(0f, -40f, 0f), ForceMode.Force);
+
+            yield return null;
+        }
+        go.AddComponent<Turn>();
+
+        //Destroy(go);
     }
 
     void ExtractEdge()

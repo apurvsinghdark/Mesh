@@ -16,12 +16,13 @@ public class AimBehaviour : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.Z) && !aimCamera.activeInHierarchy)
         {
+            //Allow time for the camera to blend before enabling the UI
+            StartCoroutine(ShowReticle());
+            
             mainCamera.SetActive(false);
             aimCamera.SetActive(true);
             Camera.main.orthographic = true;
 
-            //Allow time for the camera to blend before enabling the UI
-            StartCoroutine(ShowReticle());
         }
         else if(Input.GetKeyDown(KeyCode.Z) && !mainCamera.activeInHierarchy)
         {

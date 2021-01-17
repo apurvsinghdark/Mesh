@@ -28,6 +28,8 @@ public class TurningChisel : MonoBehaviour
 
     protected bool contacting = false;
 
+    public static bool IsConnecting = false; 
+
     void Start()
     {
         dirtParticle.Stop();
@@ -77,8 +79,8 @@ public class TurningChisel : MonoBehaviour
                 if (!contacting)
                 {
                     contacting = true;
+                    ContactBegin();
                 }
-                ContactBegin();
 
                 subject.Clip(this);
                 //GameManager.instance.dirtParticle.Play(); 
@@ -90,8 +92,8 @@ public class TurningChisel : MonoBehaviour
                  if (contacting)
                  {
                     contacting = false;
+                    ContactEnd();
                  }
-                ContactEnd();
              }
           
             previousPosition = currentPosition;
@@ -101,11 +103,14 @@ public class TurningChisel : MonoBehaviour
     void ContactBegin()
     {
         dirtParticle.Play();
+        IsConnecting = true;
     }
 
     void ContactEnd()
     {
         dirtParticle.Stop();
+        //Debug.Log("ContactEnd");
+        IsConnecting = false;
     }
 
     void BuildClipPolygon(Vector2 begin, Vector2 end)
@@ -191,8 +196,8 @@ public class TurningChisel : MonoBehaviour
                 if (contacting)
                 {
                     contacting = false;
+                    ContactEnd();
                 }           
-                ContactEnd();
             }
 
             yield return null;

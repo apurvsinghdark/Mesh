@@ -20,7 +20,7 @@ public class QuickInterpolation : MonoBehaviour
 
         if(zValue == 0 && xValue == 0)
         {
-            zValue = -2.9f;
+            zValue = -3.58f;
             xValue = -3.100001f;
             //yValue = -0.62f;
             //Pin.pin.localPosition.z = new Vector3(0,0,yValue);
@@ -39,7 +39,7 @@ public class QuickInterpolation : MonoBehaviour
             float percentZValue = (zValue/100) * 5;
             float percentXValue = (xValue/100) * 5;
             //Debug.Log(percentValue);
-            float newXPosition = -2.9f - percentZValue;
+            float newXPosition = -3.58f - percentZValue;
             float newZPosition = -3.100001f + percentXValue;
 
             do{
