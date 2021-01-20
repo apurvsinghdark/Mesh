@@ -83,7 +83,7 @@ public class InputCommand : MonoBehaviour
         if(OnEnterChanged != null)
             OnEnterChanged();
 
-        word = string.Empty;
+        //word = string.Empty;
     }
     
     public void OnCycleStart()

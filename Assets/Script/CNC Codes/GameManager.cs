@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     public static bool IsMovable { get; set;}
     public static bool IsPower { get; set;}
+    private bool IsFirst { get; set;}
 
     //public ParticleSystem dirtParticle;
 
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
         
         IsMovable = false;
         IsPower = false;
+        IsFirst = true;
 
         InputCommand.instance.OnEStopChanged += OnEStop;
         InputCommand.instance.OnPowerChanged += OnPower;
@@ -57,7 +59,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("E-STOP form Gamemanager");
         spindleRate = 0;
         IsMovable = false;
-        IsPower = false;
+        
+        if(!IsFirst)
+        {
+            IsFirst = false;
+            IsPower = false;
+        }
     }
     public void OnPower()
     {

@@ -1,8 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CodeListContainers : MonoBehaviour
+[CreateAssetMenu(fileName = "Container", menuName = "List/Containers")]
+public class CodeListContainers : ScriptableObject
 {
-    
+    public List[] lists;
+}
+
+[System.Serializable]
+public struct List
+{
+    public string listName;
+    public GCodeList gCodeLists;
 }

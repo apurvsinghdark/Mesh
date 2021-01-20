@@ -5,8 +5,9 @@ using System.Collections;
 
 
 public class DeveloperConsoleBehaviour : MonoBehaviour
-{
+{   
     private string prefix = "";
+    [Header("ConsoleCommands")]
     [SerializeField] private ConsoleCommand[] commands = new ConsoleCommand[0];
 
     [Header("UI")]
@@ -16,8 +17,11 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     public ScrollRect scrollRect;
     public TMP_Text consoleText;
 
-    [SerializeField] private GCodeList gList;
+    [Header("CodeListContainer")]
+    [SerializeField] private CodeListContainers containers;
+    //[SerializeField] private GCodeList gList;
 
+    ///PROCESS COMMANDS HELPER
     string code = "";
     string[] textSplit;
     string Commandtext;
@@ -48,12 +52,13 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     }
 
     private void Start() {
-        
         //InputCommand.instance.OnEnterChanged += TextToConsole;
+        InputCommand.instance.OnEnterChanged += OnClickList;
         InputCommand.instance.OnCycleStartChanged += StartCycle;
-        InputCommand.instance.OnProgramList += ReadList;
+        InputCommand.instance.OnProgramList += ReadFromUsb;
 
-        //StartCoroutine(ListRead());
+        //StartCoroutine(ReadFromUsb());
+        //OnClickList();
     }
     private void LateUpdate() {
         
@@ -69,7 +74,30 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
                 inputField.ActivateInputField();
             }
         }
-            
+    }
+
+    private void Update() {
+        //ReadFromUsb();
+    }
+
+    void ReadFromUsb()
+    {
+        for (int i = 0; i < containers.lists.Length; i++)
+        {
+            //print(containers.gCodeLists[i] + " " + i);
+            //StartCoroutine(ListRead(containers.gCodeLists[i]));
+            consoleText.text += containers.lists[i].listName + "\n";
+            scrollRect.verticalNormalizedPosition = 0f;
+        }
+    }
+
+    public void OnClickList()
+    {
+        if(ArrowKeys.listID > containers.lists.Length - 1)
+        {
+            ArrowKeys.listID = containers.lists.Length - 1;
+        }
+        StartCoroutine(ListRead(containers.lists[ArrowKeys.listID].gCodeLists));
     }
 
     public void TextToConsole()
@@ -91,7 +119,7 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     }
     public void ReadList()
     {
-        StartCoroutine(ListRead());
+        //StartCoroutine(ListRead());
     }
 
     public void ProcessCommand(string inputValue)
@@ -136,13 +164,14 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         }
     }    
     
-    IEnumerator ListRead() {
-     
+    IEnumerator ListRead(GCodeList gList) {
+     consoleText.text = string.Empty;
      for(int i = 0; i < gList.CodeList.Length; i++) {   
 
-        AddMessageToConsole(gList.CodeList[i]);
+            AddMessageToConsole(gList.CodeList[i]);
+            // print(gList.CodeList[i]);
         
-        yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f);
         }
     }    
 
