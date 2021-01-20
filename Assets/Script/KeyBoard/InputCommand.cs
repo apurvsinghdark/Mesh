@@ -6,8 +6,11 @@ public class InputCommand : MonoBehaviour
 {
     string word = null;
     int worldIndex = 0;
+    int buttonClick = 0;
+
     string alpha;
     public TMP_Text myCommand = null;
+    public TMP_Text instructionText = null;
 
     public delegate void OnResetChanged();
     public OnResetChanged onResetChanged;
@@ -18,6 +21,7 @@ public class InputCommand : MonoBehaviour
     public event System.Action OnEStopChanged;
     public event System.Action OnEnterChanged;
     public event System.Action OnCycleStartChanged;
+    public event System.Action OnProgramList;
 
     public void alphabetFunction(string alphabet)
     {
@@ -38,10 +42,18 @@ public class InputCommand : MonoBehaviour
 
     public void RESETALL()
     {
-        Debug.Log("Reset");
-
-        if(onResetChanged != null)
-            onResetChanged.Invoke();
+        //Debug.Log("Reset");
+        buttonClick += 1;
+        if(buttonClick == 2)
+        {
+            if(onResetChanged != null)
+            {
+                onResetChanged.Invoke();
+                instructionText.text = "Press Power up resart button";
+                Debug.Log("Reset");
+                buttonClick = 0;
+            }
+        }
     }
     
     public void EmergencyStop()
@@ -84,5 +96,11 @@ public class InputCommand : MonoBehaviour
     {
         word = string.Empty;
         myCommand.text = string.Empty;
+    }
+
+    public void ProgramList()
+    {
+        if(OnProgramList != null)
+            OnProgramList();
     }
 }

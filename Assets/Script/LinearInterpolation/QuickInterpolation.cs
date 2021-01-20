@@ -36,8 +36,8 @@ public class QuickInterpolation : MonoBehaviour
         
         if(zValue != 0 && xValue != 0)
         {
-            float percentZValue = (zValue/100) * 5;
-            float percentXValue = (xValue/100) * 5;
+            float percentZValue = (zValue/100) * 2;
+            float percentXValue = (xValue/100) * 2;
             //Debug.Log(percentValue);
             float newXPosition = -3.58f - percentZValue;
             float newZPosition = -3.100001f + percentXValue;

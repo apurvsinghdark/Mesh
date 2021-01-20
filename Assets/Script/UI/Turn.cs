@@ -17,9 +17,10 @@ public class Turn : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.B))
         {
-            UICam = GameObject.Find("UICamera").GetComponent<Camera>();
-            DetachSpawn = GameObject.Find("DetachSpawn").transform;
-            transform.position = DetachSpawn.position;
+            //UICam = GameObject.Find("UICamera").GetComponent<Camera>();
+            DetachSpawn = GameObject.Find("DetachedSubject").transform;
+            DetachSpawn.transform.parent = this.transform;
+            DetachSpawn.localPosition = new Vector3(-2.8f,0,0);
         }
 
         if(Input.GetMouseButtonDown(0))
@@ -30,8 +31,10 @@ public class Turn : MonoBehaviour
             var delta = Input.mousePosition - posLastFrame;
             posLastFrame = Input.mousePosition;
 
+            //DetachSpawn.localPosition = new Vector3(-2.8f,0,0);
+
             var axis = Quaternion.AngleAxis(-90f, Vector3.forward) * delta;
-            transform.localRotation = Quaternion.AngleAxis(delta.magnitude * 0.1f, axis) * transform.rotation;
+            transform.rotation = Quaternion.AngleAxis(delta.magnitude * 0.1f, axis) * transform.rotation;
         }
     }
 }

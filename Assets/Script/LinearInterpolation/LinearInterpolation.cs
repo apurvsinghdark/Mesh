@@ -22,15 +22,23 @@ public class LinearInterpolation : MonoBehaviour
     [SerializeField]float cutRateModifier;
 
     private void Start() {
+        LatheControl.PowerUpRestart += PowerUpRestart;
+        
         g01.LinearMovement += Movement;
         cutRateModifier = 1;
+    }
+
+    public void PowerUpRestart()
+    {
+        Movement(0,0,10f);
     }
     public void Movement(float xValue, float zValue, float fValue)
     {
         StartCoroutine(MultipleCarve(xValue, zValue, fValue));
         //StartCoroutine(LinearMovement(xValue, zValue, fValue));
 
-        timeScale = Mathf.Abs((xValue + zValue)/fValue);
+        timeScale = Mathf.Abs((xValue - zValue)/fValue);
+        //timeScale = 3f;
 
         if(timeScale == 0)
         {
@@ -48,14 +56,34 @@ public class LinearInterpolation : MonoBehaviour
     IEnumerator MultipleCarve(float xValue, float zValue, float fValue) {
         if(xValue == 0 && zValue == 0 || xValue == 0 && zValue != 0 || xValue != 0 && zValue == 0)
         {
-           StartCoroutine(LinearMovement(xValue,zValue,fValue));
-           //LinearMovement(xValue,zValue,fValue);
+            if(xValue == 0 && zValue == 0)
+            {
+                G01.IsHorizontal = true; 
+                StartCoroutine(LinearMovement(0,zValue,fValue));
+                StopCoroutine(LinearMovement(0,zValue,fValue));
+                yield return new WaitForSeconds(0.5f);
+                G01.IsHorizontal = false;
+                StartCoroutine(LinearMovement(xValue,0,fValue));
+                StopCoroutine(LinearMovement(xValue,0,fValue));
+                //LinearMovement(xValue,zValue,fValue);
+            }
+            if(!G01.IsHorizontal)
+            {
+                StartCoroutine(LinearMovement(xValue,0,fValue));
+                StopCoroutine(LinearMovement(xValue,0,fValue));
+            }
+            if(G01.IsHorizontal)
+            {
+                StartCoroutine(LinearMovement(0,zValue,fValue));
+                StopCoroutine(LinearMovement(0,zValue,fValue));
+            }
         }
         else{
 
             float R = 10 - xValue;
             if( R % 2 == 0 )
             {
+                //timeScale = 3f;
                 float r = 0;
                 do{
                     //float z = zValue;
@@ -106,7 +134,7 @@ public class LinearInterpolation : MonoBehaviour
                 newPosition = zValue;
             }else if(zValue != 0 && xValue == 0)
             {
-                percentValue = (zValue/100) * 5;
+                percentValue = (zValue/100) * 2;
                 //Debug.Log(percentValue);
                 newPosition = -3.58f - percentValue;
                 //newPosition = Pin.pin.localPosition.x - percentValue;
@@ -132,7 +160,7 @@ public class LinearInterpolation : MonoBehaviour
                 newZPosition = yValue;
             }else if(xValue != 0 && zValue == 0)
             {
-                percentValue = (xValue/100) * 5;
+                percentValue = (xValue/100) * 2;
                 //Debug.Log(percentValue);
                 newYPosition = -3.100001f - percentValue;
                 //newZPosition = 0f + percentValue;

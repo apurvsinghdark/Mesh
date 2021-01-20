@@ -188,7 +188,7 @@ public class TurningController : MonoBehaviour
 
         GameManager Pin = GameManager.instance;
 
-        //go.transform.parent = Pin.meshHolder;
+        go.transform.parent = Pin.meshHolder;
 
         var go_transform = go.transform;
         var this_transform = transform;
@@ -224,7 +224,7 @@ public class TurningController : MonoBehaviour
 
             yield return null;
         }
-        go.AddComponent<Turn>();
+        //go.AddComponent<Turn>();
 
         //Destroy(go);
     }

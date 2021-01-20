@@ -16,6 +16,8 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     public ScrollRect scrollRect;
     public TMP_Text consoleText;
 
+    [SerializeField] private GCodeList gList;
+
     string code = "";
     string[] textSplit;
     string Commandtext;
@@ -47,8 +49,11 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
 
     private void Start() {
         
-        InputCommand.instance.OnEnterChanged += TextToConsole;
+        //InputCommand.instance.OnEnterChanged += TextToConsole;
         InputCommand.instance.OnCycleStartChanged += StartCycle;
+        InputCommand.instance.OnProgramList += ReadList;
+
+        //StartCoroutine(ListRead());
     }
     private void LateUpdate() {
         
@@ -83,6 +88,10 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     {
         if(GameManager.IsPower)
             StartCoroutine(ListSystem());
+    }
+    public void ReadList()
+    {
+        StartCoroutine(ListRead());
     }
 
     public void ProcessCommand(string inputValue)
@@ -124,6 +133,16 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         Debug.Log(textSplit[i]);
         
         yield return new WaitForSeconds(LinearInterpolation.timeScale);
+        }
+    }    
+    
+    IEnumerator ListRead() {
+     
+     for(int i = 0; i < gList.CodeList.Length; i++) {   
+
+        AddMessageToConsole(gList.CodeList[i]);
+        
+        yield return new WaitForSeconds(0.1f);
         }
     }    
 
