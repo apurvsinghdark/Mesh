@@ -12,7 +12,8 @@ public class G02 : ConsoleCommand
 
     string[] textSplit;
 
-    public event System.Action<Transform, Vector2, Vector2, float, float> FollowCircle;
+    public event System.Action<Transform , Vector2, Vector2, float, float> FollowCircle;
+    //public event System.Action FollowCircle;
 
     public override bool Process(string[] args)
     {
@@ -46,19 +47,28 @@ public class G02 : ConsoleCommand
         chisel.x = Pin.pin.localPosition.x;
         chisel.y = Pin.pin.localPosition.y;
 
-        float percentZValue = (zValue/100) * 5;
-        float percentXValue = (xValue/100) * 5;
+        float percentZValue = (zValue/100) * 75f;
+        float percentXValue = (xValue/100) * 75f;
         //Debug.Log(percentValue);
-        float newXPosition = -2.9f - percentZValue;
-        float newZPosition = -3.100001f - percentXValue;
+        float newXPosition = -140.4f - percentZValue;
+        float newYPosition = -3f - percentXValue;
 
+        // end.x = -32.86f;
+        // end.y = -4.900002f;
+        
         end.x = newXPosition;
-        end.y = newZPosition;
+        end.y = newYPosition;
 
-        //FollowArc(Pin.pin, chisel, end, rValue, 3);
+        if(rValue == 2)
+        {
+            rValue = 5;
+        }
+
         if(FollowCircle != null)
         {
-            FollowCircle(Pin.pin, chisel, end, rValue, 3);
+            FollowCircle(Pin.pin, chisel, end, rValue, 10);
+            // FollowCircle(xValue, zValue, rValue, 30);
+            // FollowCircle();
         }
         
 

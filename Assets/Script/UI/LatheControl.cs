@@ -6,6 +6,7 @@ public class LatheControl : MonoBehaviour
     
     public void PowerUp()
     {
+        G01.IsSingle = false;
         if(PowerUpRestart != null)
             PowerUpRestart();
     }

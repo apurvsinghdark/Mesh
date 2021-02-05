@@ -15,5 +15,3 @@ MonoBehaviour:
   lists:
   - listName: List1
     gCodeLists: {fileID: 11400000, guid: a8b7b3d925df3224ba556f98c18f5a23, type: 2}
-  - listName: List2
-    gCodeLists: {fileID: 11400000, guid: 1269fc3644eb830499300eac03352813, type: 2}

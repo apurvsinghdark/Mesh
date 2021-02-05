@@ -374,6 +374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCommand: {fileID: 1001739534}
+  instructionText: {fileID: 0}
 --- !u!114 &307140241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g01: {fileID: 11400000, guid: b5a80ea41fdaa614e93e9e765dc1447d, type: 2}
+  cutRateModifier: 1
 --- !u!114 &307140243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +616,12 @@ PrefabInstance:
       propertyPath: commands.Array.data[5]
       value: 
       objectReference: {fileID: 11400000, guid: d1806cc4cef021d4bb378ae7c93b2b24,
+        type: 2}
+    - target: {fileID: 1599928751263691970, guid: 56b6ca49c93627249b9549162d13606f,
+        type: 3}
+      propertyPath: containers
+      value: 
+      objectReference: {fileID: 11400000, guid: b51105f55046e664987779cfcc50adf0,
         type: 2}
     - target: {fileID: 1987416376659183065, guid: 56b6ca49c93627249b9549162d13606f,
         type: 3}

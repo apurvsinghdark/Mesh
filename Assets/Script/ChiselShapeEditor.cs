@@ -35,8 +35,8 @@ public class ChiselShapeEditor : Editor
         Handles.DrawLine(p1 + basePos, p2 + basePos);
         for (int i = 1; i < ps.Length; i++)
         {
-            p1 = ps[i - 1] - shape.offset;
-            p2 = ps[i] - shape.offset;
+            p1 = ps[i - 1] - shape.offset + new Vector2(0, 1.45f);
+            p2 = ps[i] - shape.offset + new Vector2(0, 1.45f);
             Handles.DrawLine(p1 + basePos, p2 + basePos);
         }        
     }

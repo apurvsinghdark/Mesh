@@ -206,6 +206,8 @@ public class TurningController : MonoBehaviour
 
         var turningMeshBuilder = go.AddComponent<MeshGeneration>();
 
+        go.transform.localScale = new Vector3(1,1,1);
+
         var rb = go.AddComponent<Rigidbody>();
         go.AddComponent<BoxCollider>();
         rb.useGravity = false;

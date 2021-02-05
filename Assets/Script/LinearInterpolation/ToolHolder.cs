@@ -20,6 +20,9 @@ public class ToolHolder : MonoBehaviour
             case 0102:
                 toolHolder.localRotation = Quaternion.Euler(new Vector3(-115f,0f,0f));
                 break;
+            case 0101:
+                toolHolder.localRotation = Quaternion.Euler(new Vector3(-55f,0f,0f));
+                break;
             default:
                 break;
         }

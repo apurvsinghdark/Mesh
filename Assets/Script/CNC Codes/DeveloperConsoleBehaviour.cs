@@ -97,7 +97,11 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
         {
             ArrowKeys.listID = containers.lists.Length - 1;
         }
+        ///For multiple Cnc Program
         StartCoroutine(ListRead(containers.lists[ArrowKeys.listID].gCodeLists));
+        
+        //For First Cnc Programe
+        //StartCoroutine(ListRead(containers.lists[0].gCodeLists));
     }
 
     public void TextToConsole()
@@ -136,9 +140,9 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
 
     public void AddMessageToConsole (string msg)
     {
-        consoleText.text += msg + "\n";
+        //consoleText.text += msg + "\n";
         Commandtext += msg;
-        scrollRect.verticalNormalizedPosition = 0f;
+        //scrollRect.verticalNormalizedPosition = 0f;
 
         textSplit = Commandtext.Split(";"[0]);
 
@@ -155,24 +159,29 @@ public class DeveloperConsoleBehaviour : MonoBehaviour
     //Read String Commands at certain interval of time
     IEnumerator ListSystem() {
      
-     for(int i = 0; i < textSplit.Length; i++) {   
+        //yield return new WaitForSeconds(1f);
 
-        DeveloperConsole.ProcessCommand(textSplit[i]);
-        Debug.Log(textSplit[i]);
-        
-        yield return new WaitForSeconds(LinearInterpolation.timeScale);
+        for(int i = 0; i < textSplit.Length; i++) {   
+
+            consoleText.text += textSplit[i] + "\n";
+            scrollRect.verticalNormalizedPosition = 0f;
+            DeveloperConsole.ProcessCommand(textSplit[i]);
+            Debug.Log(textSplit[i]);
+            
+            yield return new WaitForSeconds(5f);
         }
     }    
     
     IEnumerator ListRead(GCodeList gList) {
-     consoleText.text = string.Empty;
-     for(int i = 0; i < gList.CodeList.Length; i++) {   
+        consoleText.text = string.Empty;
+        
+        for(int i = 0; i < gList.CodeList.Length; i++) {   
 
             AddMessageToConsole(gList.CodeList[i]);
             // print(gList.CodeList[i]);
         
-            yield return new WaitForSeconds(0.1f);
         }
+        yield return null;
     }    
 
 }

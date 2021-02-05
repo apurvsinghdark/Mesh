@@ -6,6 +6,7 @@ public class G00 : ConsoleCommand
     public string msg = " ";
 
     string[] textSplit;
+    public static bool IsVertical {get; set;}
 
     public event System.Action<float, float> QuickMovement;
     
@@ -15,39 +16,42 @@ public class G00 : ConsoleCommand
         
         textSplit = logText.Split(" "[0]);
         
-        // if(string.Compare(textSplit[0], 0, "Z", 0, 1) == 0)
-        // {
-        //     var z = textSplit[0].Remove(0,1);
+        if(string.Compare(textSplit[0], 0, "Z", 0, 1) == 0)
+        {
+            IsVertical = false;
+            var z = textSplit[0].Remove(0,1);
 
-        //     if (!float.TryParse(z, out float zValue))
-        //     {
-        //         return false;
-        //     }
+            if (!float.TryParse(z, out float zValue))
+            {
+                return false;
+            }
 
-        //     if(QuickMovement != null)
-        //     {
-        //         QuickMovement(0, zValue); 
-        //     }
+            if(QuickMovement != null)
+            {
+                QuickMovement(0, zValue); 
+            }
 
-        //     return true;
-        // }
+            return true;
+        }
 
-        // if(string.Compare(textSplit[0], 0, "X", 0, 1) == 0)
-        // {
-        //     var x = textSplit[0].Remove(0,1);
+        if(string.Compare(textSplit[0], 0, "X", 0, 1) == 0)
+        {
+            IsVertical = true;
+            
+            var x = textSplit[0].Remove(0,1);
 
-        //     if (!float.TryParse(x, out float xValue))
-        //     {
-        //         return false;
-        //     }
+            if (!float.TryParse(x, out float xValue))
+            {
+                return false;
+            }
 
-        //     if(QuickMovement != null)
-        //     {
-        //         QuickMovement(xValue, 0); 
-        //     }
+            if(QuickMovement != null)
+            {
+                QuickMovement(xValue, 0); 
+            }
 
-        //     return true;
-        // }
+            return true;
+        }
 
         //Debug.Log(msg + " " + value);
         if(textSplit[0] != null && textSplit[1] != null)

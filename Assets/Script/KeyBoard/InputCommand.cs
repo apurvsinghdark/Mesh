@@ -6,7 +6,13 @@ public class InputCommand : MonoBehaviour
 {
     string word = null;
     int worldIndex = 0;
+    
+    //For ResetButton
     int buttonClick = 0;
+    
+    //For EnterButton
+    int _Pressed = 0;
+
 
     string alpha;
     public TMP_Text myCommand = null;
@@ -80,10 +86,12 @@ public class InputCommand : MonoBehaviour
 
     public void OnEnter()
     {
-        if(OnEnterChanged != null)
-            OnEnterChanged();
-
-        //word = string.Empty;
+        if(_Pressed == 2)
+        {
+            if(OnEnterChanged != null)
+                OnEnterChanged();
+        }
+        _Pressed += 1;
     }
     
     public void OnCycleStart()
