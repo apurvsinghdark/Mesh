@@ -15,6 +15,4 @@ MonoBehaviour:
   CodeList:
   - M03 S1000;
   - G01 X0 Z0 F10;
-  - G01 X10 F10;
-  - G01 Z0 F10;
-  - G01 Z-93 F10;
+  - G01 X04.60 C2;

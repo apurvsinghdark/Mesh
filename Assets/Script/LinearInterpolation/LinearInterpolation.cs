@@ -14,6 +14,10 @@ public class LinearInterpolation : MonoBehaviour
     float newZPosition;
     float yValue;
 
+    //Chamfer
+    float _newXPosition;
+    float _newCPosition;
+
     public static float timeScale;
     float cutRate;
     [SerializeField]float cutRateModifier = 1f;
@@ -73,11 +77,6 @@ public class LinearInterpolation : MonoBehaviour
                 StartCoroutine(LinearMovement(xValue,0,fValue));
                 StopCoroutine(LinearMovement(xValue,0,fValue));
             }
-            if(G01.IsHorizontal == false && xValue == 0 && G01.IsSingle == true && G01.IsChamfer == true)
-            {
-                StartCoroutine(Chamfer(xValue,zValue,fValue));
-                StopCoroutine(Chamfer(xValue,zValue,fValue));
-            }
             if(G01.IsHorizontal == true && zValue != 0)
             {
                 // StartCoroutine(LinearMovement(0,zValue, cutRate * cutRateModifier));
@@ -111,7 +110,7 @@ public class LinearInterpolation : MonoBehaviour
                 StopCoroutine(LinearMovement(0,zValue, fValue));
             }
         }
-        else if(xValue != 0 && zValue != 0)
+        else if(xValue != 0 && zValue != 0 && G01.IsSingle == false)
         {
             G01.IsHorizontal = false;
             StartCoroutine(LinearMovement(xValue, 0, fValue));
@@ -122,6 +121,15 @@ public class LinearInterpolation : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             StopCoroutine(LinearMovement(0, zValue, cutRate * cutRateModifier));
         }
+        else if(G01.IsChamfer == true && G01.IsSingle == true)
+        {
+            StartCoroutine(ChamferC(xValue,8f));
+            StopCoroutine(ChamferC(xValue,8f));
+            yield return new WaitForSeconds(0.3f);
+            StartCoroutine(ChamferX(1,8f));
+            StopCoroutine(ChamferX(1,8f));
+        }
+        
         
         
         
@@ -224,27 +232,46 @@ public class LinearInterpolation : MonoBehaviour
         }
     }
 
-    IEnumerator Chamfer(float xValue, float cValue, float fValue)
+    IEnumerator ChamferX(float xValue,float fValue)
     {
         GameManager Pin = GameManager.instance; //INSTANCE OF CHISEL
-        float _newXPosition;
-        float _newCPosition;
+        
+
+        Debug.Log("Champer");
         
         percentValue = (xValue/100) * 75f;
         //Debug.Log(percentValue);
-        _newXPosition = -3f - percentValue;
+        _newXPosition = Pin.pin.localPosition.x + percentValue;
+
+        do{
+            Pin.turrent.parent = Pin.pin;
+            Pin.pin.localPosition = Vector3.MoveTowards(Pin.pin.localPosition, new Vector3( _newXPosition, Pin.pin.localPosition.y, Pin.pin.localPosition.z), fValue * Time.deltaTime);
+            
+            //Pin.turrent.localPosition = new Vector3(Pin.pin.localPosition.x + 52.7f,Pin.turrent.localPosition.y ,Pin.turrent.localPosition.z);
+            Pin.turrent.parent = Pin.meshHolder;
+            yield return null;
+        }while( Vector2.Distance(Pin.pin.localPosition, new Vector3(_newXPosition, Pin.pin.localPosition.y, Pin.pin.localPosition.z)) > 0.01f);
+    }
+    IEnumerator ChamferC(float cValue, float fValue)
+    {
+        GameManager Pin = GameManager.instance; //INSTANCE OF CHISEL
+        
+
+        Debug.Log("Champer");
+
         percentValue = (cValue/100) * 75f;
         //Debug.Log(percentValue);
-        _newCPosition = -140.4f - percentValue;
+        _newCPosition = -3f - percentValue;
+        // _newCPosition = -140.4f + percentValue;
         //newPosition = Pin.pin.localPosition.x - percentValue;
 
         do{
             Pin.turrent_toolHolder.parent = Pin.pin;
-            Pin.pin.localPosition = Vector3.MoveTowards(Pin.pin.localPosition, new Vector3(_newXPosition, Pin.pin.localPosition.y + _newCPosition, Pin.pin.localPosition.z), fValue * Time.deltaTime);
+            Pin.pin.localPosition = Vector3.MoveTowards(Pin.pin.localPosition, new Vector3( Pin.pin.localPosition.x, _newCPosition, Pin.pin.localPosition.z), fValue * Time.deltaTime);
             
-            Pin.turrent.localPosition = new Vector3(Pin.pin.localPosition.x + 52.7f,Pin.turrent.localPosition.y ,Pin.turrent.localPosition.z);
+            //Pin.turrent.localPosition = new Vector3(Pin.pin.localPosition.x + 52.7f,Pin.turrent.localPosition.y ,Pin.turrent.localPosition.z);
             Pin.turrent_toolHolder.parent = Pin.turrent;
             yield return null;
-        }while( Vector2.Distance(Pin.pin.localPosition, new Vector3(_newXPosition, Pin.pin.localPosition.y + _newCPosition, Pin.pin.localPosition.z)) > 0.01f);
+        }while( Vector2.Distance(Pin.pin.localPosition, new Vector3(Pin.pin.localPosition.x, _newCPosition, Pin.pin.localPosition.z)) > 0.01f);
     }
 }

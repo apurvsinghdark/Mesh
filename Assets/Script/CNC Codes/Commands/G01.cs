@@ -82,6 +82,8 @@ public class G01 : ConsoleCommand
             IsSingle = true;
             IsChamfer = true;
             
+            //Debug.Log("ChamerFromCode");
+
             var x = textSplit[0].Remove(0,1);
 
             if (!float.TryParse(x, out float xValue))
